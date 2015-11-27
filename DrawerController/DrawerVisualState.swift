@@ -146,20 +146,20 @@ public struct DrawerVisualState {
                 let distance: CGFloat = max(drawerController.maximumLeftDrawerWidth, drawerController.visibleLeftDrawerWidth)
                 
                 if (percentVisible <= 1.0) {
-                    transform = CATransform3DMakeTranslation((-distance) / parallaxFactor + (distance * percentVisible / parallaxFactor), 0.0, 0.0)
+                    transform = CATransform3DMakeTranslation(round((-distance) / parallaxFactor + (distance * percentVisible / parallaxFactor)), 0.0, 0.0)
                 } else {
                     transform = CATransform3DMakeScale(percentVisible, 1.0, 1.0)
-                    transform = CATransform3DTranslate(transform, drawerController.maximumLeftDrawerWidth * (percentVisible - 1.0) / 2, 0.0, 0.0)
+                    transform = CATransform3DTranslate(transform, round(drawerController.maximumLeftDrawerWidth * (percentVisible - 1.0) / 2), 0.0, 0.0)
                 }
             } else if (drawerSide == .Right) {
                 sideDrawerViewController = drawerController.rightDrawerViewController
                 let distance: CGFloat = max(drawerController.maximumRightDrawerWidth, drawerController.visibleRightDrawerWidth)
                 
                 if (percentVisible <= 1.0) {
-                    transform = CATransform3DMakeTranslation((distance) / parallaxFactor - (distance * percentVisible / parallaxFactor), 0.0, 0.0)
+                    transform = CATransform3DMakeTranslation(round((distance) / parallaxFactor - (distance * percentVisible / parallaxFactor)), 0.0, 0.0)
                 } else {
                     transform = CATransform3DMakeScale(percentVisible, 1.0, 1.0)
-                    transform = CATransform3DTranslate(transform, -drawerController.maximumRightDrawerWidth * (percentVisible - 1.0) / 2, 0.0, 0.0)
+                    transform = CATransform3DTranslate(transform, round(-drawerController.maximumRightDrawerWidth * (percentVisible - 1.0) / 2), 0.0, 0.0)
                 }
             }
             
