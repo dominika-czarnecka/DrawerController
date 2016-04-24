@@ -114,7 +114,7 @@ public enum DrawerOpenCenterInteractionMode: Int {
     case NavigationBarOnly
 }
 
-private let DrawerDefaultWidth: CGFloat = 280.0
+private let DrawerDefaultWidth: CGFloat = CGFloat(UIScreen.mainScreen().bounds.size.width - 50)
 private let DrawerDefaultAnimationVelocity: CGFloat = 840.0
 
 private let DrawerDefaultFullAnimationDelay: NSTimeInterval = 0.10
@@ -134,7 +134,7 @@ private let DrawerOvershootLinearRangePercentage: CGFloat = 0.75
 /** The percent of the possible overshoot width to use as the actual overshoot percentage. */
 private let DrawerOvershootPercentage: CGFloat = 0.1
 
-private let DrawerBezelRange: CGFloat = 20.0
+private let DrawerBezelRange: CGFloat = 50.0
 
 private let DrawerLeftDrawerKey = "DrawerLeftDrawer"
 private let DrawerRightDrawerKey = "DrawerRightDrawer"
