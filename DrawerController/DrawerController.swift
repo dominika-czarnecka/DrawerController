@@ -114,7 +114,7 @@ public enum DrawerOpenCenterInteractionMode: Int {
     case NavigationBarOnly
 }
 
-private let DrawerDefaultWidth: CGFloat = CGFloat(UIScreen.mainScreen().bounds.size.width - 50)
+private let DrawerDefaultWidth: CGFloat = CGFloat(UIScreen.mainScreen().bounds.size.width)
 private let DrawerDefaultAnimationVelocity: CGFloat = 840.0
 
 private let DrawerDefaultFullAnimationDelay: NSTimeInterval = 0.10
@@ -180,7 +180,6 @@ private class DrawerCenterContainerView: UIView {
                 }
             }
         }
-        
         return navBar
     }
 }
@@ -189,8 +188,8 @@ public class DrawerController: UIViewController, UIGestureRecognizerDelegate {
     private var _centerViewController: UIViewController?
     private var _leftDrawerViewController: UIViewController?
     private var _rightDrawerViewController: UIViewController?
-    private var _maximumLeftDrawerWidth = DrawerDefaultWidth
-    private var _maximumRightDrawerWidth = DrawerDefaultWidth
+    private var _maximumLeftDrawerWidth = DrawerDefaultWidth * 0.4
+    private var _maximumRightDrawerWidth = DrawerDefaultWidth * 0.8
     
     /**
     The center view controller.
@@ -278,7 +277,6 @@ public class DrawerController: UIViewController, UIGestureRecognizerDelegate {
     
     /**
     The visible width of the `leftDrawerViewController`.
-    
     Note this value can be greater than `maximumLeftDrawerWidth` during the full close animation when setting a new center view controller;
     */
     public var visibleLeftDrawerWidth: CGFloat {
@@ -289,7 +287,6 @@ public class DrawerController: UIViewController, UIGestureRecognizerDelegate {
     
     /**
     The visible width of the `rightDrawerViewController`.
-    
     Note this value can be greater than `maximumRightDrawerWidth` during the full close animation when setting a new center view controller;
     */
     public var visibleRightDrawerWidth: CGFloat {
@@ -1533,7 +1530,17 @@ public class DrawerController: UIViewController, UIGestureRecognizerDelegate {
         var leftBezelRect = CGRectNull
         var tempRect = CGRectNull
         
-        CGRectDivide(self.childControllerContainerView.bounds, &leftBezelRect, &tempRect, bezelRange, .MinXEdge)
+//        CGRectDivide(self.childControllerContainerView.bounds, &leftBezelRect, &tempRect, bezelRange, .MinXEdge)
+         CGRectDivide(self.childControllerContainerView.bounds, &leftBezelRect, &tempRect, 50, .MaxXEdge)
+        
+        return CGRectContainsPoint(leftBezelRect, point) && self.isPointContainedWithinCenterViewContentRect(point)
+    }
+    
+    func isPointContainedWithinLeftBezelRectClose(point: CGPoint) -> Bool {
+        var leftBezelRect = CGRectNull
+        var tempRect = CGRectNull
+        
+        CGRectDivide(self.childControllerContainerView.bounds, &leftBezelRect, &tempRect, UIScreen.mainScreen().bounds.size.width * 0.6, .MinXEdge)
         
         return CGRectContainsPoint(leftBezelRect, point) && self.isPointContainedWithinCenterViewContentRect(point)
     }
@@ -1542,7 +1549,17 @@ public class DrawerController: UIViewController, UIGestureRecognizerDelegate {
         var rightBezelRect = CGRectNull
         var tempRect = CGRectNull
         
-        CGRectDivide(self.childControllerContainerView.bounds, &rightBezelRect, &tempRect, bezelRange, .MaxXEdge)
+//        CGRectDivide(self.childControllerContainerView.bounds, &rightBezelRect, &tempRect, bezelRange, .MaxXEdge)
+         CGRectDivide(self.childControllerContainerView.bounds, &rightBezelRect, &tempRect, 50, .MaxXEdge)
+        
+        return CGRectContainsPoint(rightBezelRect, point) && self.isPointContainedWithinCenterViewContentRect(point)
+    }
+    
+    func isPointContainedWithinRightBezelRectClose(point: CGPoint) -> Bool {
+        var rightBezelRect = CGRectNull
+        var tempRect = CGRectNull
+        
+        CGRectDivide(self.childControllerContainerView.bounds, &rightBezelRect, &tempRect, UIScreen.mainScreen().bounds.size.width, .MinXEdge)
         
         return CGRectContainsPoint(rightBezelRect, point) && self.isPointContainedWithinCenterViewContentRect(point)
     }
