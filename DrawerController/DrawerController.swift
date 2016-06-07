@@ -1541,7 +1541,7 @@ public class DrawerController: UIViewController, UIGestureRecognizerDelegate {
         var rightBezelRect = CGRectNull
         var tempRect = CGRectNull
         
-        CGRectDivide(self.childControllerContainerView.bounds, &rightBezelRect, &tempRect, UIScreen.mainScreen().bounds.size.width * 0.6, .MaxXEdge)
+        CGRectDivide(self.childControllerContainerView.bounds, &rightBezelRect, &tempRect, UIScreen.mainScreen().bounds.size.width * 0.7, .MaxXEdge)
         
         return CGRectContainsPoint(rightBezelRect, point) && self.isPointContainedWithinCenterViewContentRect(point)
     }
